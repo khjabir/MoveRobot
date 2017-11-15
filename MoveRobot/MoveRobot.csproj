@@ -7,8 +7,8 @@
     <ProjectGuid>{DA4A3295-E4C5-487C-923B-DF545B5C4D71}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Move_Robot</RootNamespace>
-    <AssemblyName>Move Robot</AssemblyName>
+    <RootNamespace>MoveRobot</RootNamespace>
+    <AssemblyName>MoveRobot</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Robot.cs" />
+    <Compile Include="Table.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
