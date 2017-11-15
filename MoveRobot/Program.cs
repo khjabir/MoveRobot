@@ -93,19 +93,19 @@ namespace MoveRobot
         private static void InitializeInstructions()
         {
             string instructions =
-                "****************************************************************\n" +
-                " COMMANDS : \n" +
-                "-----------\n" +
-                "1) PLACE X,Y,F \t=> Places Robot on table in (X,Y) facing towards F\n" +
+                "******************************************************************\n" +
+                "\t\t\t COMMANDS \n" +
+                "\t\t\t----------\n" +
+                "1) PLACE X,Y,F \t=> Places Robot on table in (X,Y) facing towards F.\n\n" +
                 "\t\t\t (0,0) <= (X,Y) <= (4,4)\n" +
                 "\t\t\t F => 'NORTH | EAST | WEST | SOUTH' \n" +
-                "\t\t\t (0,0) => SOUTH WEST most corner\n" +
+                "\t\t\t (0,0) => SOUTH WEST most corner\n\n" +
                 "2) MOVE \t=> Move one unit forward \n" +
                 "3) RIGHT \t=> Rotates 90 degree right\n" +
                 "4) LEFT \t=> Rotates 90 degree left\n" +
-                "5) REPORT \t=> Announce X, Y and F\n" +
+                "5) REPORT \t=> Announces X, Y and F\n" +
                 "6) EXIT \t=> Exit from the application\n" +
-                "****************************************************************\n";
+                "******************************************************************\n";
             Console.WriteLine(instructions);
         }
     }
