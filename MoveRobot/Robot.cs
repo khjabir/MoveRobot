@@ -9,36 +9,46 @@ namespace MoveRobot
     public class Robot
     {
         #region Constants
+
         private const int _north = 0;
         private const int _east = 1;
         private const int _south = 2;
         private const int _west = 3;
 
-        public string[] directions = { "N", "E", "S", "W" };
+        public string[] directions = { "NORTH", "EAST", "SOUTH", "WEST" };
 
         #endregion
 
         #region Private Members
+
         private int robotXPosition;
         private int robotYPosition;
         private int robotDirection;
+
         #endregion
 
         #region Constructor
+
         public Robot()
         {
-            robotXPosition = 0;
-            robotYPosition = 0;
-            robotDirection = 0;
+            Initialize();
         }
+
         #endregion
 
         #region Public Methods
+
         public void Placed(int xPosition, int yPosition, int direction)
         {
             robotXPosition = xPosition;
             robotYPosition = yPosition;
             robotDirection = direction;
+        }
+
+        public int GetDirectionIndex(string direction)
+        {
+            int index = Array.FindIndex(directions, value => value == direction);
+            return index;
         }
 
         public void MoveForward(Table table)
@@ -79,9 +89,16 @@ namespace MoveRobot
 
         #region Private Methods
 
+        private void Initialize()
+        {
+            robotXPosition = 0;
+            robotYPosition = 0;
+            robotDirection = 0;
+        }
+
         private void MoveTowardsNorth(Table table)
         {
-            if(robotYPosition + 1 < table.mValue)
+            if(robotYPosition + 1 < table.getRowValue())
             {
                 robotYPosition++;
             }
@@ -89,7 +106,7 @@ namespace MoveRobot
 
         private void MoveTowardsEast(Table table)
         {
-            if (robotXPosition + 1 < table.mValue)
+            if (robotXPosition + 1 < table.getColumnValue())
             {
                 robotXPosition++;
             }

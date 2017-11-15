@@ -1,20 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace MoveRobot
 {
     public class Table
     {
-        public int mValue;
-        public int nValue;
+        #region Private Members
+
+        private int rowValue;
+        private int columnValue;
+
+        #endregion
+
+        #region Constructor
 
         public Table()
         {
-            mValue = 5;
-            nValue = 5;
+            rowValue = 5;
+            columnValue = 5;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public int getRowValue()
+        {
+            return rowValue;
+        }
+
+        public int getColumnValue()
+        {
+            return columnValue;
         }
 
         public bool IsPositionExists(int xPosition, int yPosition)
@@ -22,14 +38,20 @@ namespace MoveRobot
             return (XValueInRange(xPosition) && YValueInRange(yPosition));
         }
 
+        #endregion
+
+        #region Private Methods
+
         private bool XValueInRange(int xPosition)
         {
-            return (xPosition >= 0 && xPosition < mValue);
+            return (xPosition >= 0 && xPosition < columnValue);
         }
 
         private bool YValueInRange(int yPosition)
         {
-            return (yPosition >= 0 && yPosition < mValue);
+            return (yPosition >= 0 && yPosition < rowValue);
         }
+
+        #endregion
     }
 }
