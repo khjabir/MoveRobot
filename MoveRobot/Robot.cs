@@ -186,7 +186,7 @@ namespace MoveRobot
                         Console.Write(".\t");
                     }
                 }
-                Console.WriteLine();
+                Console.WriteLine('\n');
             }
             Console.WriteLine();
         }
