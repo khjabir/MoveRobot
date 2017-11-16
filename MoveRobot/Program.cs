@@ -8,12 +8,16 @@ namespace MoveRobot
     {
         private const string _initializePattern = @"\bPLACE [0-4],[0-4],(NORTH|EAST|WEST|SOUTH)$";
 
+        /// <summary>
+        /// Program enters here
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Robot robot = new Robot();
             Table table = new Table();
 
-            InitializeInstructions();
+            DisplayInstructions();
 
             if (RobotIsPlaced(robot, table))
             {
@@ -22,6 +26,12 @@ namespace MoveRobot
 
         }
 
+        /// <summary>
+        /// CHeck whether robot is placed or not
+        /// </summary>
+        /// <param name="robot"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
         private static bool RobotIsPlaced(Robot robot, Table table)
         {
             string inputCommand = null;
@@ -37,6 +47,13 @@ namespace MoveRobot
             return false;
         }
 
+        /// <summary>
+        /// Places the robot on table in the specified position in input command
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="robot"></param>
+        /// <param name="inputCommand"></param>
+        /// <returns></returns>
         private static bool PlaceRobotOnTable(Table table, Robot robot, string inputCommand)
         {
             string PlaceArgs = inputCommand.Split(' ')[1];
@@ -54,6 +71,11 @@ namespace MoveRobot
             return false;
         }
 
+        /// <summary>
+        /// Robot starts moving on the table
+        /// </summary>
+        /// <param name="robot"></param>
+        /// <param name="table"></param>
         private static void StartMoving(Robot robot, Table table)
         {
             string inputCommand = null;
@@ -73,7 +95,7 @@ namespace MoveRobot
                         robot.RotateRight();
                         break;
                     case "REPORT":
-                        robot.ReportPostion();
+                        robot.ReportPostion(table);
                         break;
                     default:
                         CheckReplaced(table, robot, inputCommand);
@@ -82,6 +104,12 @@ namespace MoveRobot
             }
         }
 
+        /// <summary>
+        /// Handles another PLACE commands issued while moving
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="robot"></param>
+        /// <param name="inputCommand"></param>
         private static void CheckReplaced(Table table, Robot robot, string inputCommand)
         {
             if(Regex.IsMatch(inputCommand, _initializePattern))
@@ -90,7 +118,10 @@ namespace MoveRobot
             }
         }
 
-        private static void InitializeInstructions()
+        /// <summary>
+        /// Displays the instructions to user
+        /// </summary>
+        private static void DisplayInstructions()
         {
             string instructions =
                 "******************************************************************\n" +
