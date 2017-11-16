@@ -6,7 +6,7 @@ namespace MoveRobot
 
     class Program
     {
-        private const string _initializePattern = @"\bPLACE [0-4],[0-4],(NORTH|EAST|WEST|SOUTH)$";
+        private const string initializePattern = @"\bPLACE [0-4],[0-4],(NORTH|EAST|WEST|SOUTH)$";
 
         /// <summary>
         /// Program enters here
@@ -131,7 +131,7 @@ namespace MoveRobot
         /// <returns></returns>
         private static bool PlaceCommandRegexMatches(string inputCommand)
         {
-            return Regex.IsMatch(inputCommand, _initializePattern);
+            return Regex.IsMatch(inputCommand, initializePattern);
         }
 
         /// <summary>
