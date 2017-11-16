@@ -15,11 +15,11 @@ namespace MoveRobot
         static void Main(string[] args)
         {
             Robot robot = new Robot();
-            Table table = new Table();
+            Table table = new Table(5,5);
 
             DisplayInstructions();
 
-            if (RobotIsPlaced(robot, table))
+            if (IsValidPlaceCommand(robot, table))
             {
                 StartMoving(robot, table);
             }
@@ -32,15 +32,19 @@ namespace MoveRobot
         /// <param name="robot"></param>
         /// <param name="table"></param>
         /// <returns></returns>
-        private static bool RobotIsPlaced(Robot robot, Table table)
+        private static bool IsValidPlaceCommand(Robot robot, Table table)
         {
             string inputCommand = null;
             while (inputCommand != "EXIT")
             {
                 inputCommand = Console.ReadLine();
-                if (Regex.IsMatch(inputCommand, _initializePattern))
+                if (PlaceCommandRegexMatches(inputCommand))
                 {
                    return PlaceRobotOnTable(table, robot, inputCommand);
+                }
+                else if(inputCommand.Equals("HELP"))
+                {
+                    DisplayInstructions();
                 }
             }
 
@@ -56,18 +60,17 @@ namespace MoveRobot
         /// <returns></returns>
         private static bool PlaceRobotOnTable(Table table, Robot robot, string inputCommand)
         {
-            string PlaceArgs = inputCommand.Split(' ')[1];
-            int xPosition = Convert.ToInt16(PlaceArgs.Split(',')[0]);
-            int yPosition = Convert.ToInt16(PlaceArgs.Split(',')[1]);
-            int direction = robot.GetDirectionIndex(PlaceArgs.Split(',')[2]);
-            if (direction >= 0)
+            string[] placeArgs = inputCommand.Split(' ')[1].Split(',');
+            int xPosition = Convert.ToInt16(placeArgs[0]);
+            int yPosition = Convert.ToInt16(placeArgs[1]);
+            int direction = GetDirectionIndex(placeArgs[2]);
+
+            if (table.IsPositionExists(xPosition, yPosition))
             {
-                if (table.IsPositionExists(xPosition, yPosition))
-                {
-                    robot.PlaceRobot(xPosition, yPosition, direction);
-                    return true;
-                }
+                robot.PlaceRobot(xPosition, yPosition, direction);
+                return true;
             }
+
             return false;
         }
 
@@ -89,16 +92,19 @@ namespace MoveRobot
                         robot.MoveForward(table);
                         break;
                     case "LEFT":
-                        robot.RotateLeft();
+                        robot.Rotate(inputCommand);
                         break;
                     case "RIGHT":
-                        robot.RotateRight();
+                        robot.Rotate(inputCommand);
                         break;
                     case "REPORT":
                         robot.ReportPostion(table);
                         break;
+                    case "HELP":
+                        DisplayInstructions();
+                        break;
                     default:
-                        CheckAndReplace(table, robot, inputCommand);
+                        CheckForValidPlaceCommand(table, robot, inputCommand);
                         break;
                 }
             }
@@ -110,12 +116,32 @@ namespace MoveRobot
         /// <param name="table"></param>
         /// <param name="robot"></param>
         /// <param name="inputCommand"></param>
-        private static void CheckAndReplace(Table table, Robot robot, string inputCommand)
+        private static void CheckForValidPlaceCommand(Table table, Robot robot, string inputCommand)
         {
-            if(Regex.IsMatch(inputCommand, _initializePattern))
+            if(PlaceCommandRegexMatches(inputCommand))
             {
                 PlaceRobotOnTable(table, robot, inputCommand);
             }
+        }
+
+        /// <summary>
+        /// Checks whether PLACE command is in proper format or not.
+        /// </summary>
+        /// <param name="inputCommand">The input command.</param>
+        /// <returns></returns>
+        private static bool PlaceCommandRegexMatches(string inputCommand)
+        {
+            return Regex.IsMatch(inputCommand, _initializePattern);
+        }
+
+        /// <summary>
+        /// Gets the index of the direction.
+        /// </summary>
+        /// <param name="direction">The direction.</param>
+        /// <returns></returns>
+        private static int GetDirectionIndex(string direction)
+        {
+            return (int)Enum.Parse(typeof(Robot.Directions), direction);
         }
 
         /// <summary>
@@ -135,7 +161,8 @@ namespace MoveRobot
                 "3) RIGHT \t=> Rotates 90 degree right\n" +
                 "4) LEFT \t=> Rotates 90 degree left\n" +
                 "5) REPORT \t=> Announces X, Y and F\n" +
-                "6) EXIT \t=> Exit from the application\n" +
+                "6) HELP \t=> List the commands\n" +
+                "7) EXIT \t=> Exit from the application\n" +
                 "******************************************************************\n";
             Console.WriteLine(instructions);
         }

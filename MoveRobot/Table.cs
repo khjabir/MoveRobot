@@ -1,13 +1,8 @@
-﻿
-
-namespace MoveRobot
+﻿namespace MoveRobot
 {
     public class Table
     {
         #region Private Members
-
-        private int rowCount;
-        private int columnCount;
 
         #endregion
 
@@ -16,33 +11,18 @@ namespace MoveRobot
         /// <summary>
         /// Initializes a new instance of the <see cref="Table"/> class.
         /// </summary>
-        public Table()
+        public Table(int rowValue, int colValue)
         {
-            rowCount = 5;
-            columnCount = 5;
+            rowCount = rowValue;
+            columnCount = colValue;
         }
 
         #endregion
 
-        #region Public Methods
+        #region Public Members
 
-        /// <summary>
-        /// Gets the row count of table.
-        /// </summary>
-        /// <returns> rowCount </returns>
-        public int GetRowCount()
-        {
-            return rowCount;
-        }
-
-        /// <summary>
-        /// Gets the column count of table.
-        /// </summary>
-        /// <returns> columnCount </returns>
-        public int GetColumnCount()
-        {
-            return columnCount;
-        }
+        public int rowCount { get; set; }
+        public int columnCount { get; set; }
 
         /// <summary>
         /// Determines whether the specified x and y position exists in the table.

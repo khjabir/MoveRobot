@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MoveRobot
 {
@@ -10,12 +7,7 @@ namespace MoveRobot
     {
         #region Constants
 
-        private const int _north = 0;
-        private const int _east = 1;
-        private const int _south = 2;
-        private const int _west = 3;
-
-        public string[] directions = { "NORTH", "EAST", "SOUTH", "WEST" };
+        public enum Directions { NORTH, EAST, SOUTH, WEST };
 
         #endregion
 
@@ -55,17 +47,6 @@ namespace MoveRobot
         }
 
         /// <summary>
-        /// Gets the robot's position index in direction array.
-        /// </summary>
-        /// <param name="direction">The direction.</param>
-        /// <returns></returns>
-        public int GetDirectionIndex(string direction)
-        {
-            int index = Array.FindIndex(directions, value => value == direction);
-            return index;
-        }
-
-        /// <summary>
         /// Moves the robot forward.
         /// </summary>
         /// <param name="table">The table.</param>
@@ -73,35 +54,36 @@ namespace MoveRobot
         {
             switch(robotDirection)
             {
-                case _north:
+                case (int) Directions.NORTH:
                     MoveTowardsNorth(table);
                     break;
-                case _east:
+                case (int) Directions.EAST:
                     MoveTowardsEast(table);
                     break;
-                case _south:
+                case (int) Directions.SOUTH:
                     MoveTowardsSouth(table);
                     break;
-                case _west:
+                case (int) Directions.WEST:
                     MoveTowardsWest(table);
                     break;
             }
         }
 
         /// <summary>
-        /// Rotates the robot left.
+        /// Rotates the robot left or right direction.
         /// </summary>
-        public void RotateLeft()
+        /// <param name="direction"></param>
+        public void Rotate(string direction)
         {
-            robotDirection = (robotDirection == 0 ? 3 : robotDirection - 1);
-        }
-
-        /// <summary>
-        /// Rotates the robot right.
-        /// </summary>
-        public void RotateRight()
-        {
-            robotDirection = (robotDirection == 3 ? 0 : robotDirection + 1);
+            switch(direction)
+            {
+                case "LEFT" :
+                    robotDirection = (robotDirection == 0 ? 3 : robotDirection - 1);
+                    break;
+                case "RIGHT":
+                    robotDirection = (robotDirection == 3 ? 0 : robotDirection + 1);
+                    break;
+            }
         }
 
         /// <summary>
@@ -110,7 +92,8 @@ namespace MoveRobot
         /// <param name="table">The table.</param>
         public void ReportPostion(Table table)
         {
-            Console.WriteLine(robotXPosition + "," + robotYPosition + "," + directions[robotDirection]);
+            string currentDirection = Enum.GetName(typeof(Directions), robotDirection);
+            Console.WriteLine("\n" + robotXPosition + "," + robotYPosition + "," + currentDirection + "\n");
             DrawPosition(table, robotXPosition, robotYPosition, robotDirection);
         }
 
@@ -134,7 +117,7 @@ namespace MoveRobot
         /// <param name="table">The table.</param>
         private void MoveTowardsNorth(Table table)
         {
-            if(robotYPosition + 1 < table.GetRowCount())
+            if(robotYPosition + 1 < table.rowCount)
             {
                 robotYPosition++;
             }
@@ -146,7 +129,7 @@ namespace MoveRobot
         /// <param name="table">The table.</param>
         private void MoveTowardsEast(Table table)
         {
-            if (robotXPosition + 1 < table.GetColumnCount())
+            if (robotXPosition + 1 < table.columnCount)
             {
                 robotXPosition++;
             }
@@ -186,8 +169,8 @@ namespace MoveRobot
         /// <param name="robotDirection">The robot direction.</param>
         private void DrawPosition(Table table, int robotXPosition, int robotYPosition, int robotDirection)
         {
-            int rowCount = table.GetRowCount();
-            int columnCount = table.GetColumnCount();
+            int rowCount = table.rowCount;
+            int columnCount = table.columnCount;
             Console.WriteLine();
 
             for (int i = rowCount - 1; i >= 0; i--)
@@ -205,6 +188,7 @@ namespace MoveRobot
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine();
         }
 
         #endregion
