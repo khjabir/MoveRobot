@@ -64,7 +64,7 @@ namespace MoveRobot
             {
                 if (table.IsPositionExists(xPosition, yPosition))
                 {
-                    robot.Placed(xPosition, yPosition, direction);
+                    robot.PlaceRobot(xPosition, yPosition, direction);
                     return true;
                 }
             }
@@ -98,19 +98,19 @@ namespace MoveRobot
                         robot.ReportPostion(table);
                         break;
                     default:
-                        CheckReplaced(table, robot, inputCommand);
+                        CheckAndReplace(table, robot, inputCommand);
                         break;
                 }
             }
         }
 
         /// <summary>
-        /// Handles another PLACE commands issued while moving
+        /// Handles all other commands and replaces if PLACE command issued while moving
         /// </summary>
         /// <param name="table"></param>
         /// <param name="robot"></param>
         /// <param name="inputCommand"></param>
-        private static void CheckReplaced(Table table, Robot robot, string inputCommand)
+        private static void CheckAndReplace(Table table, Robot robot, string inputCommand)
         {
             if(Regex.IsMatch(inputCommand, _initializePattern))
             {

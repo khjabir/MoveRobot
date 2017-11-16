@@ -29,6 +29,9 @@ namespace MoveRobot
 
         #region Constructor
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Robot"/> class.
+        /// </summary>
         public Robot()
         {
             Initialize();
@@ -44,7 +47,7 @@ namespace MoveRobot
         /// <param name="xPosition">The x position.</param>
         /// <param name="yPosition">The y position.</param>
         /// <param name="direction">The direction.</param>
-        public void Placed(int xPosition, int yPosition, int direction)
+        public void PlaceRobot(int xPosition, int yPosition, int direction)
         {
             robotXPosition = xPosition;
             robotYPosition = yPosition;
@@ -174,6 +177,13 @@ namespace MoveRobot
             }
         }
 
+        /// <summary>
+        /// Draws the position.
+        /// </summary>
+        /// <param name="table">The table.</param>
+        /// <param name="robotXPosition">The robot x position.</param>
+        /// <param name="robotYPosition">The robot y position.</param>
+        /// <param name="robotDirection">The robot direction.</param>
         private void DrawPosition(Table table, int robotXPosition, int robotYPosition, int robotDirection)
         {
             int rowCount = table.GetRowCount();
