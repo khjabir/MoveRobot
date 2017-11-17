@@ -8,15 +8,11 @@ allowed.
 
 Allowed Commands :
 
-PLACE X,Y,F
-
-MOVE
-
-LEFT
-
-RIGHT
-
-REPORT
+* PLACE X,Y,F
+* MOVE
+* LEFT
+* RIGHT
+* REPORT
 
 In addition to these commands, EXIT and HELP Commands are also added so that user can quit the application or get an overview of the allowed commands at any time.
 

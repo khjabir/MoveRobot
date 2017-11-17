@@ -46,6 +46,10 @@ namespace MoveRobot
                 {
                     DisplayInstructions();
                 }
+                else
+                {
+                    ShowInvalidCommandMsg();
+                }
             }
 
             return false;
@@ -122,6 +126,10 @@ namespace MoveRobot
             {
                 PlaceRobotOnTable(table, robot, inputCommand);
             }
+            else if(inputCommand != "EXIT")
+            {
+                ShowInvalidCommandMsg();
+            }
         }
 
         /// <summary>
@@ -144,11 +152,20 @@ namespace MoveRobot
             return (int)Enum.Parse(typeof(Robot.Directions), direction);
         }
 
+        private static void ShowInvalidCommandMsg()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nInvalid Command\n");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         /// <summary>
         /// Displays the instructions to user
         /// </summary>
         private static void DisplayInstructions()
         {
+            Console.ForegroundColor = ConsoleColor.White;
+
             string instructions =
                 "******************************************************************\n" +
                 "\t\t\t COMMANDS \n" +
